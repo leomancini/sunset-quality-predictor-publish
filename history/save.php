@@ -10,13 +10,17 @@
         function savePrediction() {
             global $urlBase;
 
-            $directory = './predictions/';
-            $filename = time().'.json';
-            $file = $directory.$filename;
+            $predictionData = [
+                'date' => $_POST['date'],
+                'rating' => $_POST['rating'],
+                'confidence' => $_POST['confidence']
+            ];
 
-            $data = $_POST;
+            $directory = './predictions/';
+            $filename = $predictionData['date'].'.json';
+            $file = $directory.$filename;
             
-            file_put_contents($file, $data);
+            file_put_contents($file, json_encode($predictionData));
 
             $url = $urlBase.$filename;
 
@@ -24,11 +28,11 @@
         }
 
         try {
-            $imageUrl = savePrediction();
+            $predictionHistoryUrl = savePrediction();
 
             echo json_encode([
                 'success' => true,
-                'imageUrl' => $imageUrl
+                'predictionHistoryUrl' => $predictionHistoryUrl
             ]);
         } catch (exception $error) {
             echo json_encode([
