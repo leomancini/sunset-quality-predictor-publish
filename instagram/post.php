@@ -46,7 +46,7 @@
             $filename = time().'.png';
             $file = $directory.$filename;
 
-            $image = $_POST['imageURL'];
+            $image = $_POST['imageData'];
             $image = str_replace('data:image/png;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
 
@@ -59,19 +59,26 @@
             return $url;
         }
 
-        $url = uploadImage();
+        try {
+            $imageUrl = uploadImage();
 
-        // $container = generateInstagramContainer(
-        //     $url,
-        //     $input['caption']
-        // );
+            // $container = generateInstagramContainer(
+            //     $imageUrl,
+            //     $_POST['caption']
+            // );
 
-        // publishInstagramContainer($container);
+            // publishInstagramContainer($container);
 
-        echo json_encode([
-            'success' => true,
-            'imageUrl' => $url
-        ]);
+            echo json_encode([
+                'success' => true,
+                'imageUrl' => $imageUrl
+            ]);
+        } catch (exception $error) {
+            echo json_encode([
+                'success' => false,
+                'errpr' => $error
+            ]);
+        }
     } else {
         http_response_code(403);
         die('Forbidden');
