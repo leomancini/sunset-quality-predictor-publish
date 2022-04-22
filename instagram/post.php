@@ -2,7 +2,7 @@
     require('../secrets.php');
 
     if ($_POST['password'] === $SECRETS['UPLOAD_PASSWORD']) {
-        $urlBase = 'http://skyline.noshado.ws/publish/instagram/images/';
+        $urlBase = $SECRETS['PUBLISH_SERVER_URL'].'instagram/images/';
 
         header('Access-Control-Allow-Origin: *');
         header('Content-type: application/json');
@@ -62,12 +62,12 @@
         try {
             $imageUrl = uploadImage();
 
-            // $container = generateInstagramContainer(
-            //     $imageUrl,
-            //     $_POST['caption']
-            // );
+            $container = generateInstagramContainer(
+                $imageUrl,
+                $_POST['caption']
+            );
 
-            // publishInstagramContainer($container);
+            publishInstagramContainer($container);
 
             echo json_encode([
                 'success' => true,

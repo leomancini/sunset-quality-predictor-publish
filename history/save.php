@@ -2,7 +2,7 @@
     require('../secrets.php');
 
     if ($_POST['password'] === $SECRETS['UPLOAD_PASSWORD']) {
-        $urlBase = 'http://skyline.noshado.ws/publish/history/predictions/';
+        $urlBase = $SECRETS['PUBLISH_SERVER_URL'].'history/predictions/';
 
         header('Access-Control-Allow-Origin: *');
         header('Content-type: application/json');
