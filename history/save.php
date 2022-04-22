@@ -14,7 +14,7 @@
             $filename = time().'.json';
             $file = $directory.$filename;
 
-            $data = $_POST['data'];
+            $data = json_encode($_POST['data']);
             
             file_put_contents($file, $data);
 
