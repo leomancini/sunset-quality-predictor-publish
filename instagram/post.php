@@ -43,7 +43,7 @@
             global $urlBase;
 
             $directory = './images/';
-            $filename = time().'.png';
+            $filename = $_POST['date'].'.png';
             $file = $directory.$filename;
 
             $image = $_POST['imageData'];
