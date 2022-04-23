@@ -76,7 +76,7 @@
         } catch (exception $error) {
             echo json_encode([
                 'success' => false,
-                'errpr' => $error
+                'error' => $error
             ]);
         }
     } else {
