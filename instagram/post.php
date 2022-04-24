@@ -80,7 +80,7 @@
             ]);
         }
     } else {
-        http_response_code(403);
-        die('Forbidden');
+        http_response_code(404);
+        die('File not found.');
     }
 ?>
