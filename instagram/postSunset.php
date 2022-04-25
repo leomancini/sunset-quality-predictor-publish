@@ -9,12 +9,16 @@
         header('Content-type: application/json');
 
         try {
-            $videoUrl = $urlBase.$_GET['date'].'.mp4';
+            $dateInput = $_GET['date'];
+            $date = new DateTime($dateInput);
+
+            $videoUrl = $urlBase.$dateInput.'.mp4';
+            $caption = 'Timelapse of sunset that occured on '.$date->format('l, F j, Y').'.';
 
             $container = generateInstagramContainer(
                 'video',
                 $videoUrl,
-                'testsunset'
+                $caption
             );
     
             sleep(30); // Wait for media to be ready for publishing
