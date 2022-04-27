@@ -13,7 +13,7 @@
             $date = new DateTime($dateInput);
 
             $videoUrl = $urlBase.$dateInput.'.mp4';
-            $caption = 'Timelapse of the sunset on '.$date->format('l, F j, Y');
+            $caption = 'Timelapse of the sunset on '.$date->format('l, F j, Y').'.';
 
             $container = generateInstagramContainer(
                 'video',
