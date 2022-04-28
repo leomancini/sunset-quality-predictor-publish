@@ -1,6 +1,7 @@
 <?php
     require('../config.php');
     require('../functions/getSunsetTime.php');
+    require('../history/get.php');
     require('./utilities.php');
 
     if ($_GET['password'] === $SECRETS['UPLOAD_PASSWORD']) {
@@ -15,32 +16,32 @@
 
             $videoUrl = $urlBase.$dateInput.'.mp4';
 
+            $historialPrediction = getHistorialPrediction($date);
+
             $sunsetTime = getSunsetTime($date);
             $sunsetTimeFormatted = $sunsetTime->format('g:i A');
 
             $captions = [
-                'Timelapse of the sunset on '.$date->format('l, F j, Y').' at '.$sunsetTimeFormatted,
-                'Timelapse '.$sunsetTimeFormatted
+                'Expectations vs reality... this sunset happened at '.$sunsetTimeFormatted.' on '.$date->format('l, F j, Y').' and I thought it would be '.$historialPrediction->rating.' out of 5 stars and I was '.$historialPrediction->rating.'% sure. Was I right?',
+                "Here's the sunset on ".$date->format('l, F j, Y').' at '.$sunsetTimeFormatted.'! I was '.$historialPrediction->confidence.'% confident it would be a '.$historialPrediction->rating.'-star sunset. What do you think?'
             ];
 
             $caption = $captions[array_rand($captions)];
 
-            echo $caption;
-
-            // $container = generateInstagramContainer(
-            //     'video',
-            //     $videoUrl,
-            //     $caption
-            // );
+            $container = generateInstagramContainer(
+                'video',
+                $videoUrl,
+                $caption
+            );
     
-            // sleep(30); // Wait for media to be ready for publishing
+            sleep(30); // Wait for media to be ready for publishing
 
-            // publishInstagramContainer($container);
+            publishInstagramContainer($container);
 
-            // echo json_encode([
-            //     'success' => true,
-            //     'videoUrl' => $videoUrl
-            // ]);
+            echo json_encode([
+                'success' => true,
+                'videoUrl' => $videoUrl
+            ]);
         } catch (exception $error) {
             echo json_encode([
                 'success' => false,
