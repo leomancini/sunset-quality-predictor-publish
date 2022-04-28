@@ -1,5 +1,6 @@
 <?php
-    require('../secrets.php');
+    require('../config.php');
+    require('../functions/getSunsetTime.php');
     require('./utilities.php');
 
     if ($_GET['password'] === $SECRETS['UPLOAD_PASSWORD']) {
@@ -13,22 +14,33 @@
             $date = new DateTime($dateInput);
 
             $videoUrl = $urlBase.$dateInput.'.mp4';
-            $caption = 'Timelapse of the sunset on '.$date->format('l, F j, Y').'.';
 
-            $container = generateInstagramContainer(
-                'video',
-                $videoUrl,
-                $caption
-            );
+            $sunsetTime = getSunsetTime($date);
+            $sunsetTimeFormatted = $sunsetTime->format('g:i A');
+
+            $captions = [
+                'Timelapse of the sunset on '.$date->format('l, F j, Y').' at '.$sunsetTimeFormatted,
+                'Timelapse '.$sunsetTimeFormatted
+            ];
+
+            $caption = $captions[array_rand($captions)];
+
+            echo $caption;
+
+            // $container = generateInstagramContainer(
+            //     'video',
+            //     $videoUrl,
+            //     $caption
+            // );
     
-            sleep(30); // Wait for media to be ready for publishing
+            // sleep(30); // Wait for media to be ready for publishing
 
-            publishInstagramContainer($container);
+            // publishInstagramContainer($container);
 
-            echo json_encode([
-                'success' => true,
-                'videoUrl' => $videoUrl
-            ]);
+            // echo json_encode([
+            //     'success' => true,
+            //     'videoUrl' => $videoUrl
+            // ]);
         } catch (exception $error) {
             echo json_encode([
                 'success' => false,

@@ -1,3 +1,4 @@
 .DS_Store
 instagram/images/*
+config.php
 secrets.php
