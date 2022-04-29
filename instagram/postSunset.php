@@ -22,7 +22,7 @@
             $sunsetTimeFormatted = $sunsetTime->format('g:i A');
 
             $captions = [
-                'Expectations vs reality... this sunset happened at '.$sunsetTimeFormatted.' on '.$date->format('l, F j, Y').' and I thought it would be '.$historialPrediction->rating.' out of 5 stars and I was '.$historialPrediction->rating.'% sure. Was I right?',
+                'Expectations vs reality... this sunset happened at '.$sunsetTimeFormatted.' on '.$date->format('l, F j, Y').' and I thought it would be '.$historialPrediction->rating.' out of 5 stars and I was '.$historialPrediction->confidence.'% sure. Was I right?',
                 "Here's the sunset on ".$date->format('l, F j, Y').' at '.$sunsetTimeFormatted.'! I was '.$historialPrediction->confidence.'% confident it would be a '.$historialPrediction->rating.'-star sunset. What do you think?'
             ];
 
